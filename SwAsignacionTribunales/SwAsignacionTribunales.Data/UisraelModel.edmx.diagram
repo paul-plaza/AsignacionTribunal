@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7836d590f60642d5a9f5b761b88146e4" Name="Diagram1">
+        <EntityTypeShape EntityType="UniversidadIsraelModel.Empresa" Width="1.5" PointX="8.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.Tesi" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.AsignacionFechaDefensa" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.TipoIntegranteTribunal" Width="1.5" PointX="3.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.Tribunal" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.Url" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.SeguimientoTesi" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.sysdiagram" Width="1.5" PointX="5.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.DeudasPendientesEstudiante" Width="1.5" PointX="7.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.DocumentoIngreso" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.EstudianteDocumentoIngreso" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.DetalleUsuario" Width="1.5" PointX="13" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.Perfil" Width="1.5" PointX="13.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.Sistema" Width="1.5" PointX="10.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.Usuario" Width="1.5" PointX="10.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.UsuarioPerfil" Width="1.5" PointX="16" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.UsuarioSistema" Width="1.5" PointX="13" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.Log" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.RegistroAccesoUsuario" Width="1.5" PointX="15.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.PoyectoVinculacion" Width="1.5" PointX="8.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.PracticaVinculacionEstudiante" Width="1.5" PointX="11" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.SeguimientoPracticasVinculacion" Width="1.5" PointX="13.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.TipoPracticaVinculacion" Width="1.5" PointX="8.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.EstudiantePicExaman" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.TipoPicExaman" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.TipoRevision" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.TutoreSeguimiento" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.EstudianteHabilitacionEstudiante" Width="1.5" PointX="18" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.HabilitacionEstudiante" Width="1.5" PointX="15.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.ObservacionHabilitacionEstudiante" Width="1.5" PointX="18" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversidadIsraelModel.V_Estudiante" Width="1.5" PointX="5.75" PointY="17.75" IsExpanded="true" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_PracticaVinculacionEstudiante_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_AsignacionFechaDefensa_Tesis" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_EstudiantePicExamen_Tesis" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_SeguimientoTesis_Tesis" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_Tribunal_Tesis" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_TutoreSeguimiento_Tesis" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_Tribunal_TipoIntegranteTribunal" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_SeguimientoTesis_TipoRevision" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_IdUsuario_DetalleUsuario_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_IdPerfil_UsuarioPerfil_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_IdSistema_Perfil_Sistema" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_IdSistema_UsuarioSistema_Sistema" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_IdUsuario_UsuarioPerfil_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_IdUsuario_UsuarioSistema_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_PracticaVinculacionEstudiante_PoyectoVinculacion" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_EstudiantePicExamen_TipoPicExamen" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_TutoreSeguimiento_TipoRevision" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversidadIsraelModel.FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,2333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UniversidadIsraelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="IdEmpresa" />
+          </Key>
+          <Property Name="IdEmpresa" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="Direccion" Type="varchar" MaxLength="250" />
+          <Property Name="Telefono" Type="varchar" MaxLength="15" />
+          <Property Name="Correo" Type="varchar" MaxLength="150" />
+          <Property Name="Representante" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Tesis">
+          <Key>
+            <PropertyRef Name="IdTesis" />
+          </Key>
+          <Property Name="IdTesis" Type="int" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IdEstudiante" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+          <Property Name="IsTutoria" Type="bit" />
+          <Property Name="FechaTutoria" Type="date" />
+          <Property Name="IsRevision" Type="bit" />
+          <Property Name="FechaRevision" Type="date" />
+          <Property Name="IsHabilitado" Type="bit" />
+          <Property Name="FechaHabilitado" Type="date" />
+        </EntityType>
+        <EntityType Name="AsignacionFechaDefensa">
+          <Key>
+            <PropertyRef Name="IdAsignacionFechaDefensa" />
+          </Key>
+          <Property Name="IdAsignacionFechaDefensa" Type="int" Nullable="false" />
+          <Property Name="FechaDefensa" Type="date" />
+          <Property Name="Hora" Type="datetime" />
+          <Property Name="IdTesis" Type="int" />
+          <Property Name="NotaFinalGrado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Graduado" Type="bit" />
+          <Property Name="IsActivo" Type="bit" />
+          <Property Name="Observacion" Type="varchar" MaxLength="500" />
+          <Property Name="IdEstudiante" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoIntegranteTribunal">
+          <Key>
+            <PropertyRef Name="IdTipoIntegranteTribunal" />
+          </Key>
+          <Property Name="IdTipoIntegranteTribunal" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="IsActivo" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tribunal">
+          <Key>
+            <PropertyRef Name="IdTribunal" />
+          </Key>
+          <Property Name="IdTribunal" Type="int" Nullable="false" />
+          <Property Name="Docente" Type="varchar" MaxLength="15" />
+          <Property Name="IdEstudiante" Type="varchar" MaxLength="15" />
+          <Property Name="Calificacion" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IdTipoIntegranteTribunal" Type="int" Nullable="false" />
+          <Property Name="IdTesis" Type="int" />
+        </EntityType>
+        <EntityType Name="Urls">
+          <Key>
+            <PropertyRef Name="IdGuid" />
+          </Key>
+          <Property Name="IdGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdSistema" Type="int" Nullable="false" />
+          <Property Name="IdPerfil" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguimientoTesis">
+          <Key>
+            <PropertyRef Name="IdSeguimientoTesis" />
+          </Key>
+          <Property Name="IdSeguimientoTesis" Type="int" Nullable="false" />
+          <Property Name="DocenteTutor" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="FechaRevision" Type="date" />
+          <Property Name="IdTipoRevision" Type="int" />
+          <Property Name="Calificacion" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IdTesis" Type="int" Nullable="false" />
+          <Property Name="FechaFinRevision" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="DeudasPendientesEstudiante">
+          <Key>
+            <PropertyRef Name="IdDeudaPendiente" />
+          </Key>
+          <Property Name="IdDeudaPendiente" Type="int" Nullable="false" />
+          <Property Name="Estudiante" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="date" Nullable="false" />
+          <Property Name="ValorPendiente" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Detalle" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsPagado" Type="bit" Nullable="false" />
+          <Property Name="FechaPago" Type="date" />
+          <Property Name="NumeroFactura" Type="varchar" MaxLength="50" />
+          <Property Name="Observacion" Type="varchar" MaxLength="1000" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="DocumentoIngreso">
+          <Key>
+            <PropertyRef Name="IdDocumentoIngreso" />
+          </Key>
+          <Property Name="IdDocumentoIngreso" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Tipo" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="EstudianteDocumentoIngreso">
+          <Key>
+            <PropertyRef Name="IdDocumentoIngresoTipo" />
+          </Key>
+          <Property Name="IdDocumentoIngresoTipo" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+          <Property Name="IdEstudiante" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="IdDocumentoIngreso" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleUsuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSistema" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Grupo" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sistema">
+          <Key>
+            <PropertyRef Name="IdSistema" />
+          </Key>
+          <Property Name="IdSistema" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Siglas" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="AreaUsuarias" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Servidor" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Puerto" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GuidSistema" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="ActiveDirectory" Type="bit" Nullable="false" />
+          <Property Name="Cuenta" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Contrasenia" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Salt" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuarioPerfil">
+          <Key>
+            <PropertyRef Name="IdUsuarioPerfil" />
+          </Key>
+          <Property Name="IdUsuarioPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdPerfil" Type="int" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsuarioSistema">
+          <Key>
+            <PropertyRef Name="IdUsuarioSistema" />
+          </Key>
+          <Property Name="IdUsuarioSistema" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdSistema" Type="int" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Parametros" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Respuesta" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Usuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistroAccesoUsuario">
+          <Key>
+            <PropertyRef Name="IdRegistroAcceso" />
+          </Key>
+          <Property Name="IdRegistroAcceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Cuenta" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="FechaAcceso" Type="datetime" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PoyectoVinculacion">
+          <Key>
+            <PropertyRef Name="IdProyecto" />
+          </Key>
+          <Property Name="IdProyecto" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+          <Property Name="DocenteCatedra" Type="int" />
+          <Property Name="Carrera" Type="int" />
+          <Property Name="Nivel" Type="int" />
+          <Property Name="ParaleloAsignado" Type="varchar" MaxLength="20" />
+          <Property Name="Modalidad" Type="int" />
+          <Property Name="AsignaturaRectoria" Type="int" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="PracticaVinculacionEstudiante">
+          <Key>
+            <PropertyRef Name="IdPracticaVinculacionEstudiante" />
+          </Key>
+          <Property Name="IdPracticaVinculacionEstudiante" Type="int" Nullable="false" />
+          <Property Name="DocenteTutor" Type="varchar" MaxLength="15" />
+          <Property Name="Docente" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="MateriaGeneradora" Type="bit" />
+          <Property Name="FechaPracticaDesde" Type="date" />
+          <Property Name="Calificacion" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NumeroHora" Type="int" />
+          <Property Name="IdEstudiante" Type="nvarchar" MaxLength="15" />
+          <Property Name="EstudianteNac" Type="bit" />
+          <Property Name="CodigoCertificado" Type="varchar" MaxLength="250" />
+          <Property Name="IdMatricula" Type="int" />
+          <Property Name="Observacion" Type="varchar" MaxLength="500" />
+          <Property Name="TipoPracticaVinculacion" Type="int" />
+          <Property Name="IdEmpresa" Type="int" />
+          <Property Name="TipoProyecto" Type="int" />
+          <Property Name="FechaPracticaHasta" Type="date" />
+        </EntityType>
+        <EntityType Name="SeguimientoPracticasVinculacion">
+          <Key>
+            <PropertyRef Name="IdSeguimiento" />
+          </Key>
+          <Property Name="IdSeguimiento" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="5000" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="IdPracticaVinculacion" Type="int" />
+          <Property Name="Docente" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="TipoPracticaVinculacion">
+          <Key>
+            <PropertyRef Name="IdTipoPracticaVinculacion" />
+          </Key>
+          <Property Name="IdTipoPracticaVinculacion" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstudiantePicExamen">
+          <Key>
+            <PropertyRef Name="IdEstudiantePicExamen" />
+          </Key>
+          <Property Name="IdEstudiantePicExamen" Type="int" Nullable="false" />
+          <Property Name="IdEstudiante" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="IdTesis" Type="int" />
+          <Property Name="IdTipoPicExamen" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoPicExamen">
+          <Key>
+            <PropertyRef Name="IdTipoPicExamen" />
+          </Key>
+          <Property Name="IdTipoPicExamen" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsActivo" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoRevision">
+          <Key>
+            <PropertyRef Name="IdTipoRevision" />
+          </Key>
+          <Property Name="IdTipoRevision" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TutoreSeguimiento">
+          <Key>
+            <PropertyRef Name="IdTutorSeguimiento" />
+          </Key>
+          <Property Name="IdTutorSeguimiento" Type="int" Nullable="false" />
+          <Property Name="Docente" Type="int" Nullable="false" />
+          <Property Name="IdTipoRevision" Type="int" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+          <Property Name="IdTesis" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstudianteHabilitacionEstudiante">
+          <Key>
+            <PropertyRef Name="IdEstudianteHabilitacionEstudiante" />
+          </Key>
+          <Property Name="IdEstudianteHabilitacionEstudiante" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+          <Property Name="IdEstudiante" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="IdHabilitacionEstudiatne" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HabilitacionEstudiante">
+          <Key>
+            <PropertyRef Name="IdHabilitacionEstudiante" />
+          </Key>
+          <Property Name="IdHabilitacionEstudiante" Type="int" Nullable="false" />
+          <Property Name="IsPasantia" Type="bit" Nullable="false" />
+          <Property Name="IsVinculacion" Type="bit" Nullable="false" />
+          <Property Name="IsIdioma" Type="bit" Nullable="false" />
+          <Property Name="IsFinanciero" Type="bit" Nullable="false" />
+          <Property Name="FechaPasantia" Type="date" />
+          <Property Name="FechaVinculacion" Type="date" />
+          <Property Name="FechaIdioma" Type="date" />
+          <Property Name="FechaFinanciero" Type="date" />
+          <Property Name="IsHabilitado" Type="bit" Nullable="false" />
+          <Property Name="FechaHabilitado" Type="date" />
+          <Property Name="IsMallaCurricular" Type="bit" Nullable="false" />
+          <Property Name="FechaMallaCurricular" Type="date" />
+          <Property Name="IsDocumentoTodos" Type="bit" Nullable="false" />
+          <Property Name="FechaDocumentoTodos" Type="date" />
+          <Property Name="IsHomologacion" Type="bit" />
+          <Property Name="FechaHomologacion" Type="date" />
+          <Property Name="DescripcionHomologacion" Type="varchar" MaxLength="150" />
+          <Property Name="IsTema" Type="bit" Nullable="false" />
+          <Property Name="FechaTema" Type="date" />
+          <Property Name="TipoTema" Type="int" Nullable="false" />
+          <Property Name="Usuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObservacionHabilitacionEstudiante">
+          <Key>
+            <PropertyRef Name="IdObservacion" />
+          </Key>
+          <Property Name="IdObservacion" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="IsActivo" Type="bit" Nullable="false" />
+          <Property Name="Usuario" Type="int" Nullable="false" />
+          <Property Name="IdHabilitacionEstudiante" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'UniversidadIsrael.dbo.V_Docente' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="V_Docente">
+          <Property Name="DTPCEDULAC" Type="char" MaxLength="10" />
+          <Property Name="DTPNOMBREC" Type="char" MaxLength="50" />
+          <Property Name="DTPAPELLIC" Type="char" MaxLength="30" />
+          <Property Name="DTPAPELLIC2" Type="char" MaxLength="30" />
+          <Property Name="DTPFECHNAF" Type="datetime" />
+          <Property Name="DTPEMAILC" Type="char" MaxLength="60" />
+          <Property Name="DTPTELEFOCELC" Type="char" MaxLength="10" />
+        </EntityType>-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'UniversidadIsrael.dbo.V_Estudiante' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="V_Estudiante">
+          <Key>
+            <PropertyRef Name="CRRDESCRIPC" />
+            <PropertyRef Name="DTPCEDULAC" />
+            <PropertyRef Name="MTRFECHAD" />
+            <PropertyRef Name="CRRCODIGOI" />
+            <PropertyRef Name="MTRPARALELO" />
+            <PropertyRef Name="TPECODIGOI" />
+          </Key>
+          <Property Name="CRRDESCRIPC" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="DTPCEDULAC" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="NOMBRES" Type="varchar" MaxLength="112" />
+          <Property Name="DTPEMAILC" Type="char" MaxLength="60" />
+          <Property Name="NVLCODIGOI" Type="int" />
+          <Property Name="MDLDESCRIPC" Type="char" MaxLength="25" />
+          <Property Name="MTRFECHAD" Type="datetime" Nullable="false" />
+          <Property Name="CRRCODIGOI" Type="int" Nullable="false" />
+          <Property Name="INSGRUPOESP" Type="varchar" MaxLength="1" />
+          <Property Name="MTRPARALELO" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="MTRAÑOING" Type="varchar" MaxLength="6" />
+          <Property Name="TPECODIGOI" Type="int" Nullable="false" />
+          <Property Name="DTPTELEFOCELC" Type="char" MaxLength="10" />
+          <Property Name="DTPTELEFOC" Type="char" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_AsignacionFechaDefensa_Tesis">
+          <End Role="Tesis" Type="Self.Tesis" Multiplicity="0..1" />
+          <End Role="AsignacionFechaDefensa" Type="Self.AsignacionFechaDefensa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="AsignacionFechaDefensa">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso">
+          <End Role="DocumentoIngreso" Type="Self.DocumentoIngreso" Multiplicity="1" />
+          <End Role="EstudianteDocumentoIngreso" Type="Self.EstudianteDocumentoIngreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentoIngreso">
+              <PropertyRef Name="IdDocumentoIngreso" />
+            </Principal>
+            <Dependent Role="EstudianteDocumentoIngreso">
+              <PropertyRef Name="IdDocumentoIngreso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante">
+          <End Role="HabilitacionEstudiante" Type="Self.HabilitacionEstudiante" Multiplicity="1" />
+          <End Role="EstudianteHabilitacionEstudiante" Type="Self.EstudianteHabilitacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HabilitacionEstudiante">
+              <PropertyRef Name="IdHabilitacionEstudiante" />
+            </Principal>
+            <Dependent Role="EstudianteHabilitacionEstudiante">
+              <PropertyRef Name="IdHabilitacionEstudiatne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudiantePicExamen_Tesis">
+          <End Role="Tesis" Type="Self.Tesis" Multiplicity="0..1" />
+          <End Role="EstudiantePicExamen" Type="Self.EstudiantePicExamen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="EstudiantePicExamen">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudiantePicExamen_TipoPicExamen">
+          <End Role="TipoPicExamen" Type="Self.TipoPicExamen" Multiplicity="1" />
+          <End Role="EstudiantePicExamen" Type="Self.EstudiantePicExamen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPicExamen">
+              <PropertyRef Name="IdTipoPicExamen" />
+            </Principal>
+            <Dependent Role="EstudiantePicExamen">
+              <PropertyRef Name="IdTipoPicExamen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdPerfil_UsuarioPerfil_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="UsuarioPerfil" Type="Self.UsuarioPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="UsuarioPerfil">
+              <PropertyRef Name="IdPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSistema_Perfil_Sistema">
+          <End Role="Sistema" Type="Self.Sistema" Multiplicity="1" />
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sistema">
+              <PropertyRef Name="IdSistema" />
+            </Principal>
+            <Dependent Role="Perfil">
+              <PropertyRef Name="IdSistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSistema_UsuarioSistema_Sistema">
+          <End Role="Sistema" Type="Self.Sistema" Multiplicity="1" />
+          <End Role="UsuarioSistema" Type="Self.UsuarioSistema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sistema">
+              <PropertyRef Name="IdSistema" />
+            </Principal>
+            <Dependent Role="UsuarioSistema">
+              <PropertyRef Name="IdSistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario_DetalleUsuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="DetalleUsuario" Type="Self.DetalleUsuario" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DetalleUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario_UsuarioPerfil_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioPerfil" Type="Self.UsuarioPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioPerfil">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario_UsuarioSistema_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioSistema" Type="Self.UsuarioSistema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioSistema">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante">
+          <End Role="HabilitacionEstudiante" Type="Self.HabilitacionEstudiante" Multiplicity="1" />
+          <End Role="ObservacionHabilitacionEstudiante" Type="Self.ObservacionHabilitacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HabilitacionEstudiante">
+              <PropertyRef Name="IdHabilitacionEstudiante" />
+            </Principal>
+            <Dependent Role="ObservacionHabilitacionEstudiante">
+              <PropertyRef Name="IdHabilitacionEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticaVinculacionEstudiante_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="PracticaVinculacionEstudiante" Type="Self.PracticaVinculacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="PracticaVinculacionEstudiante">
+              <PropertyRef Name="IdEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticaVinculacionEstudiante_PoyectoVinculacion">
+          <End Role="PoyectoVinculacion" Type="Self.PoyectoVinculacion" Multiplicity="0..1" />
+          <End Role="PracticaVinculacionEstudiante" Type="Self.PracticaVinculacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoyectoVinculacion">
+              <PropertyRef Name="IdProyecto" />
+            </Principal>
+            <Dependent Role="PracticaVinculacionEstudiante">
+              <PropertyRef Name="TipoProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion">
+          <End Role="TipoPracticaVinculacion" Type="Self.TipoPracticaVinculacion" Multiplicity="0..1" />
+          <End Role="PracticaVinculacionEstudiante" Type="Self.PracticaVinculacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPracticaVinculacion">
+              <PropertyRef Name="IdTipoPracticaVinculacion" />
+            </Principal>
+            <Dependent Role="PracticaVinculacionEstudiante">
+              <PropertyRef Name="TipoPracticaVinculacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante">
+          <End Role="PracticaVinculacionEstudiante" Type="Self.PracticaVinculacionEstudiante" Multiplicity="0..1" />
+          <End Role="SeguimientoPracticasVinculacion" Type="Self.SeguimientoPracticasVinculacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracticaVinculacionEstudiante">
+              <PropertyRef Name="IdPracticaVinculacionEstudiante" />
+            </Principal>
+            <Dependent Role="SeguimientoPracticasVinculacion">
+              <PropertyRef Name="IdPracticaVinculacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoTesis_Tesis">
+          <End Role="Tesis" Type="Self.Tesis" Multiplicity="1" />
+          <End Role="SeguimientoTesis" Type="Self.SeguimientoTesis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="SeguimientoTesis">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoTesis_TipoRevision">
+          <End Role="TipoRevision" Type="Self.TipoRevision" Multiplicity="0..1" />
+          <End Role="SeguimientoTesis" Type="Self.SeguimientoTesis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRevision">
+              <PropertyRef Name="IdTipoRevision" />
+            </Principal>
+            <Dependent Role="SeguimientoTesis">
+              <PropertyRef Name="IdTipoRevision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tribunal_Tesis">
+          <End Role="Tesis" Type="Self.Tesis" Multiplicity="0..1" />
+          <End Role="Tribunal" Type="Self.Tribunal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="Tribunal">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tribunal_TipoIntegranteTribunal">
+          <End Role="TipoIntegranteTribunal" Type="Self.TipoIntegranteTribunal" Multiplicity="1" />
+          <End Role="Tribunal" Type="Self.Tribunal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoIntegranteTribunal">
+              <PropertyRef Name="IdTipoIntegranteTribunal" />
+            </Principal>
+            <Dependent Role="Tribunal">
+              <PropertyRef Name="IdTipoIntegranteTribunal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TutoreSeguimiento_Tesis">
+          <End Role="Tesis" Type="Self.Tesis" Multiplicity="1" />
+          <End Role="TutoreSeguimiento" Type="Self.TutoreSeguimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="TutoreSeguimiento">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TutoreSeguimiento_TipoRevision">
+          <End Role="TipoRevision" Type="Self.TipoRevision" Multiplicity="1" />
+          <End Role="TutoreSeguimiento" Type="Self.TutoreSeguimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRevision">
+              <PropertyRef Name="IdTipoRevision" />
+            </Principal>
+            <Dependent Role="TutoreSeguimiento">
+              <PropertyRef Name="IdTipoRevision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_CARRERA_PERIODO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PERIODO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CARRERAS_PERIODO_ESTUDIANTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PCARRERA" Type="int" Mode="In" />
+          <Parameter Name="PERIODO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_DATOS_DOCENTES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_DATOS_ESTUDIANTES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PCARRERA" Type="int" Mode="In" />
+          <Parameter Name="PERIODO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PERIODO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="UniversidadIsraelModelStoreContainer">
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="Adm" store:Type="Tables" />
+          <EntitySet Name="Tesis" EntityType="Self.Tesis" Schema="Adm" store:Type="Tables" />
+          <EntitySet Name="AsignacionFechaDefensa" EntityType="Self.AsignacionFechaDefensa" Schema="At" store:Type="Tables" />
+          <EntitySet Name="TipoIntegranteTribunal" EntityType="Self.TipoIntegranteTribunal" Schema="At" store:Type="Tables" />
+          <EntitySet Name="Tribunal" EntityType="Self.Tribunal" Schema="At" store:Type="Tables" />
+          <EntitySet Name="Urls" EntityType="Self.Urls" Schema="Com" store:Type="Tables" />
+          <EntitySet Name="SeguimientoTesis" EntityType="Self.SeguimientoTesis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeudasPendientesEstudiante" EntityType="Self.DeudasPendientesEstudiante" Schema="Dep" store:Type="Tables" />
+          <EntitySet Name="DocumentoIngreso" EntityType="Self.DocumentoIngreso" Schema="Est" store:Type="Tables" />
+          <EntitySet Name="EstudianteDocumentoIngreso" EntityType="Self.EstudianteDocumentoIngreso" Schema="Est" store:Type="Tables" />
+          <EntitySet Name="DetalleUsuario" EntityType="Self.DetalleUsuario" Schema="Lgn" store:Type="Tables" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="Lgn" store:Type="Tables" />
+          <EntitySet Name="Sistema" EntityType="Self.Sistema" Schema="Lgn" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="Lgn" store:Type="Tables" />
+          <EntitySet Name="UsuarioPerfil" EntityType="Self.UsuarioPerfil" Schema="Lgn" store:Type="Tables" />
+          <EntitySet Name="UsuarioSistema" EntityType="Self.UsuarioSistema" Schema="Lgn" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="Logs" store:Type="Tables" />
+          <EntitySet Name="RegistroAccesoUsuario" EntityType="Self.RegistroAccesoUsuario" Schema="Logs" store:Type="Tables" />
+          <EntitySet Name="PoyectoVinculacion" EntityType="Self.PoyectoVinculacion" Schema="PV" store:Type="Tables" />
+          <EntitySet Name="PracticaVinculacionEstudiante" EntityType="Self.PracticaVinculacionEstudiante" Schema="PV" store:Type="Tables" />
+          <EntitySet Name="SeguimientoPracticasVinculacion" EntityType="Self.SeguimientoPracticasVinculacion" Schema="PV" store:Type="Tables" />
+          <EntitySet Name="TipoPracticaVinculacion" EntityType="Self.TipoPracticaVinculacion" Schema="PV" store:Type="Tables" />
+          <EntitySet Name="EstudiantePicExamen" EntityType="Self.EstudiantePicExamen" Schema="Spx" store:Type="Tables" />
+          <EntitySet Name="TipoPicExamen" EntityType="Self.TipoPicExamen" Schema="Spx" store:Type="Tables" />
+          <EntitySet Name="TipoRevision" EntityType="Self.TipoRevision" Schema="Spx" store:Type="Tables" />
+          <EntitySet Name="TutoreSeguimiento" EntityType="Self.TutoreSeguimiento" Schema="Spx" store:Type="Tables" />
+          <EntitySet Name="EstudianteHabilitacionEstudiante" EntityType="Self.EstudianteHabilitacionEstudiante" Schema="Tit" store:Type="Tables" />
+          <EntitySet Name="HabilitacionEstudiante" EntityType="Self.HabilitacionEstudiante" Schema="Tit" store:Type="Tables" />
+          <EntitySet Name="ObservacionHabilitacionEstudiante" EntityType="Self.ObservacionHabilitacionEstudiante" Schema="Tit" store:Type="Tables" />
+          <EntitySet Name="V_Estudiante" EntityType="Self.V_Estudiante" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Estudiante].[CRRDESCRIPC] AS [CRRDESCRIPC], 
+    [V_Estudiante].[DTPCEDULAC] AS [DTPCEDULAC], 
+    [V_Estudiante].[NOMBRES] AS [NOMBRES], 
+    [V_Estudiante].[DTPEMAILC] AS [DTPEMAILC], 
+    [V_Estudiante].[NVLCODIGOI] AS [NVLCODIGOI], 
+    [V_Estudiante].[MDLDESCRIPC] AS [MDLDESCRIPC], 
+    [V_Estudiante].[MTRFECHAD] AS [MTRFECHAD], 
+    [V_Estudiante].[CRRCODIGOI] AS [CRRCODIGOI], 
+    [V_Estudiante].[INSGRUPOESP] AS [INSGRUPOESP], 
+    [V_Estudiante].[MTRPARALELO] AS [MTRPARALELO], 
+    [V_Estudiante].[MTRAÑOING] AS [MTRAÑOING], 
+    [V_Estudiante].[TPECODIGOI] AS [TPECODIGOI], 
+    [V_Estudiante].[DTPTELEFOCELC] AS [DTPTELEFOCELC], 
+    [V_Estudiante].[DTPTELEFOC] AS [DTPTELEFOC]
+    FROM [dbo].[V_Estudiante] AS [V_Estudiante]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AsignacionFechaDefensa_Tesis" Association="Self.FK_AsignacionFechaDefensa_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="AsignacionFechaDefensa" EntitySet="AsignacionFechaDefensa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso" Association="Self.FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso">
+            <End Role="DocumentoIngreso" EntitySet="DocumentoIngreso" />
+            <End Role="EstudianteDocumentoIngreso" EntitySet="EstudianteDocumentoIngreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante" Association="Self.FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante">
+            <End Role="HabilitacionEstudiante" EntitySet="HabilitacionEstudiante" />
+            <End Role="EstudianteHabilitacionEstudiante" EntitySet="EstudianteHabilitacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudiantePicExamen_Tesis" Association="Self.FK_EstudiantePicExamen_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="EstudiantePicExamen" EntitySet="EstudiantePicExamen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudiantePicExamen_TipoPicExamen" Association="Self.FK_EstudiantePicExamen_TipoPicExamen">
+            <End Role="TipoPicExamen" EntitySet="TipoPicExamen" />
+            <End Role="EstudiantePicExamen" EntitySet="EstudiantePicExamen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdPerfil_UsuarioPerfil_Perfil" Association="Self.FK_IdPerfil_UsuarioPerfil_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="UsuarioPerfil" EntitySet="UsuarioPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSistema_Perfil_Sistema" Association="Self.FK_IdSistema_Perfil_Sistema">
+            <End Role="Sistema" EntitySet="Sistema" />
+            <End Role="Perfil" EntitySet="Perfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSistema_UsuarioSistema_Sistema" Association="Self.FK_IdSistema_UsuarioSistema_Sistema">
+            <End Role="Sistema" EntitySet="Sistema" />
+            <End Role="UsuarioSistema" EntitySet="UsuarioSistema" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario_DetalleUsuario_Usuario" Association="Self.FK_IdUsuario_DetalleUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DetalleUsuario" EntitySet="DetalleUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario_UsuarioPerfil_Usuario" Association="Self.FK_IdUsuario_UsuarioPerfil_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioPerfil" EntitySet="UsuarioPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario_UsuarioSistema_Usuario" Association="Self.FK_IdUsuario_UsuarioSistema_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="UsuarioSistema" EntitySet="UsuarioSistema" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante" Association="Self.FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante">
+            <End Role="HabilitacionEstudiante" EntitySet="HabilitacionEstudiante" />
+            <End Role="ObservacionHabilitacionEstudiante" EntitySet="ObservacionHabilitacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticaVinculacionEstudiante_Empresa" Association="Self.FK_PracticaVinculacionEstudiante_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="PracticaVinculacionEstudiante" EntitySet="PracticaVinculacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticaVinculacionEstudiante_PoyectoVinculacion" Association="Self.FK_PracticaVinculacionEstudiante_PoyectoVinculacion">
+            <End Role="PoyectoVinculacion" EntitySet="PoyectoVinculacion" />
+            <End Role="PracticaVinculacionEstudiante" EntitySet="PracticaVinculacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion" Association="Self.FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion">
+            <End Role="TipoPracticaVinculacion" EntitySet="TipoPracticaVinculacion" />
+            <End Role="PracticaVinculacionEstudiante" EntitySet="PracticaVinculacionEstudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante" Association="Self.FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante">
+            <End Role="PracticaVinculacionEstudiante" EntitySet="PracticaVinculacionEstudiante" />
+            <End Role="SeguimientoPracticasVinculacion" EntitySet="SeguimientoPracticasVinculacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoTesis_Tesis" Association="Self.FK_SeguimientoTesis_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="SeguimientoTesis" EntitySet="SeguimientoTesis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoTesis_TipoRevision" Association="Self.FK_SeguimientoTesis_TipoRevision">
+            <End Role="TipoRevision" EntitySet="TipoRevision" />
+            <End Role="SeguimientoTesis" EntitySet="SeguimientoTesis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tribunal_Tesis" Association="Self.FK_Tribunal_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="Tribunal" EntitySet="Tribunal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tribunal_TipoIntegranteTribunal" Association="Self.FK_Tribunal_TipoIntegranteTribunal">
+            <End Role="TipoIntegranteTribunal" EntitySet="TipoIntegranteTribunal" />
+            <End Role="Tribunal" EntitySet="Tribunal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TutoreSeguimiento_Tesis" Association="Self.FK_TutoreSeguimiento_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="TutoreSeguimiento" EntitySet="TutoreSeguimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TutoreSeguimiento_TipoRevision" Association="Self.FK_TutoreSeguimiento_TipoRevision">
+            <End Role="TipoRevision" EntitySet="TipoRevision" />
+            <End Role="TutoreSeguimiento" EntitySet="TutoreSeguimiento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UniversidadIsraelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="IdEmpresa" />
+          </Key>
+          <Property Name="IdEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Representante" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PracticaVinculacionEstudiantes" Relationship="Self.FK_PracticaVinculacionEstudiante_Empresa" FromRole="Empresa" ToRole="PracticaVinculacionEstudiante" />
+        </EntityType>
+        <EntityType Name="Tesi">
+          <Key>
+            <PropertyRef Name="IdTesis" />
+          </Key>
+          <Property Name="IdTesis" Type="Int32" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdEstudiante" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IsTutoria" Type="Boolean" />
+          <Property Name="FechaTutoria" Type="DateTime" Precision="0" />
+          <Property Name="IsRevision" Type="Boolean" />
+          <Property Name="FechaRevision" Type="DateTime" Precision="0" />
+          <Property Name="IsHabilitado" Type="Boolean" />
+          <Property Name="FechaHabilitado" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="AsignacionFechaDefensas" Relationship="Self.FK_AsignacionFechaDefensa_Tesis" FromRole="Tesis" ToRole="AsignacionFechaDefensa" />
+          <NavigationProperty Name="EstudiantePicExamen" Relationship="Self.FK_EstudiantePicExamen_Tesis" FromRole="Tesis" ToRole="EstudiantePicExamen" />
+          <NavigationProperty Name="SeguimientoTesis" Relationship="Self.FK_SeguimientoTesis_Tesis" FromRole="Tesis" ToRole="SeguimientoTesis" />
+          <NavigationProperty Name="Tribunals" Relationship="Self.FK_Tribunal_Tesis" FromRole="Tesis" ToRole="Tribunal" />
+          <NavigationProperty Name="TutoreSeguimientoes" Relationship="Self.FK_TutoreSeguimiento_Tesis" FromRole="Tesis" ToRole="TutoreSeguimiento" />
+        </EntityType>
+        <EntityType Name="AsignacionFechaDefensa">
+          <Key>
+            <PropertyRef Name="IdAsignacionFechaDefensa" />
+          </Key>
+          <Property Name="IdAsignacionFechaDefensa" Type="Int32" Nullable="false" />
+          <Property Name="FechaDefensa" Type="DateTime" Precision="0" />
+          <Property Name="Hora" Type="DateTime" Precision="3" />
+          <Property Name="IdTesis" Type="Int32" />
+          <Property Name="NotaFinalGrado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Graduado" Type="Boolean" />
+          <Property Name="IsActivo" Type="Boolean" />
+          <Property Name="Observacion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstudiante" Type="Int32" />
+          <NavigationProperty Name="Tesi" Relationship="Self.FK_AsignacionFechaDefensa_Tesis" FromRole="AsignacionFechaDefensa" ToRole="Tesis" />
+        </EntityType>
+        <EntityType Name="TipoIntegranteTribunal">
+          <Key>
+            <PropertyRef Name="IdTipoIntegranteTribunal" />
+          </Key>
+          <Property Name="IdTipoIntegranteTribunal" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsActivo" Type="Boolean" />
+          <NavigationProperty Name="Tribunals" Relationship="Self.FK_Tribunal_TipoIntegranteTribunal" FromRole="TipoIntegranteTribunal" ToRole="Tribunal" />
+        </EntityType>
+        <EntityType Name="Tribunal">
+          <Key>
+            <PropertyRef Name="IdTribunal" />
+          </Key>
+          <Property Name="IdTribunal" Type="Int32" Nullable="false" />
+          <Property Name="Docente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstudiante" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Calificacion" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IdTipoIntegranteTribunal" Type="Int32" Nullable="false" />
+          <Property Name="IdTesis" Type="Int32" />
+          <NavigationProperty Name="Tesi" Relationship="Self.FK_Tribunal_Tesis" FromRole="Tribunal" ToRole="Tesis" />
+          <NavigationProperty Name="TipoIntegranteTribunal" Relationship="Self.FK_Tribunal_TipoIntegranteTribunal" FromRole="Tribunal" ToRole="TipoIntegranteTribunal" />
+        </EntityType>
+        <EntityType Name="Url">
+          <Key>
+            <PropertyRef Name="IdGuid" />
+          </Key>
+          <Property Name="IdGuid" Type="Guid" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdSistema" Type="Int32" Nullable="false" />
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeguimientoTesi">
+          <Key>
+            <PropertyRef Name="IdSeguimientoTesis" />
+          </Key>
+          <Property Name="IdSeguimientoTesis" Type="Int32" Nullable="false" />
+          <Property Name="DocenteTutor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaRevision" Type="DateTime" Precision="0" />
+          <Property Name="IdTipoRevision" Type="Int32" />
+          <Property Name="Calificacion" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IdTesis" Type="Int32" Nullable="false" />
+          <Property Name="FechaFinRevision" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Tesi" Relationship="Self.FK_SeguimientoTesis_Tesis" FromRole="SeguimientoTesis" ToRole="Tesis" />
+          <NavigationProperty Name="TipoRevision" Relationship="Self.FK_SeguimientoTesis_TipoRevision" FromRole="SeguimientoTesis" ToRole="TipoRevision" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="DeudasPendientesEstudiante">
+          <Key>
+            <PropertyRef Name="IdDeudaPendiente" />
+          </Key>
+          <Property Name="IdDeudaPendiente" Type="Int32" Nullable="false" />
+          <Property Name="Estudiante" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ValorPendiente" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Detalle" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsPagado" Type="Boolean" Nullable="false" />
+          <Property Name="FechaPago" Type="DateTime" Precision="0" />
+          <Property Name="NumeroFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Observacion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="DocumentoIngreso">
+          <Key>
+            <PropertyRef Name="IdDocumentoIngreso" />
+          </Key>
+          <Property Name="IdDocumentoIngreso" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Tipo" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EstudianteDocumentoIngresoes" Relationship="Self.FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso" FromRole="DocumentoIngreso" ToRole="EstudianteDocumentoIngreso" />
+        </EntityType>
+        <EntityType Name="EstudianteDocumentoIngreso">
+          <Key>
+            <PropertyRef Name="IdDocumentoIngresoTipo" />
+          </Key>
+          <Property Name="IdDocumentoIngresoTipo" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IdEstudiante" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdDocumentoIngreso" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DocumentoIngreso" Relationship="Self.FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso" FromRole="EstudianteDocumentoIngreso" ToRole="DocumentoIngreso" />
+        </EntityType>
+        <EntityType Name="DetalleUsuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_IdUsuario_DetalleUsuario_Usuario" FromRole="DetalleUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSistema" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Grupo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UsuarioPerfils" Relationship="Self.FK_IdPerfil_UsuarioPerfil_Perfil" FromRole="Perfil" ToRole="UsuarioPerfil" />
+          <NavigationProperty Name="Sistema" Relationship="Self.FK_IdSistema_Perfil_Sistema" FromRole="Perfil" ToRole="Sistema" />
+        </EntityType>
+        <EntityType Name="Sistema">
+          <Key>
+            <PropertyRef Name="IdSistema" />
+          </Key>
+          <Property Name="IdSistema" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Siglas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AreaUsuarias" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Servidor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Puerto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GuidSistema" Type="Guid" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Perfils" Relationship="Self.FK_IdSistema_Perfil_Sistema" FromRole="Sistema" ToRole="Perfil" />
+          <NavigationProperty Name="UsuarioSistemas" Relationship="Self.FK_IdSistema_UsuarioSistema_Sistema" FromRole="Sistema" ToRole="UsuarioSistema" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="ActiveDirectory" Type="Boolean" Nullable="false" />
+          <Property Name="Cuenta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasenia" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DetalleUsuario" Relationship="Self.FK_IdUsuario_DetalleUsuario_Usuario" FromRole="Usuario" ToRole="DetalleUsuario" />
+          <NavigationProperty Name="UsuarioPerfils" Relationship="Self.FK_IdUsuario_UsuarioPerfil_Usuario" FromRole="Usuario" ToRole="UsuarioPerfil" />
+          <NavigationProperty Name="UsuarioSistemas" Relationship="Self.FK_IdUsuario_UsuarioSistema_Usuario" FromRole="Usuario" ToRole="UsuarioSistema" />
+        </EntityType>
+        <EntityType Name="UsuarioPerfil">
+          <Key>
+            <PropertyRef Name="IdUsuarioPerfil" />
+          </Key>
+          <Property Name="IdUsuarioPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Perfil" Relationship="Self.FK_IdPerfil_UsuarioPerfil_Perfil" FromRole="UsuarioPerfil" ToRole="Perfil" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_IdUsuario_UsuarioPerfil_Usuario" FromRole="UsuarioPerfil" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="UsuarioSistema">
+          <Key>
+            <PropertyRef Name="IdUsuarioSistema" />
+          </Key>
+          <Property Name="IdUsuarioSistema" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdSistema" Type="Int32" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Sistema" Relationship="Self.FK_IdSistema_UsuarioSistema_Sistema" FromRole="UsuarioSistema" ToRole="Sistema" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_IdUsuario_UsuarioSistema_Usuario" FromRole="UsuarioSistema" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Accion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Parametros" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Respuesta" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Usuario" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistroAccesoUsuario">
+          <Key>
+            <PropertyRef Name="IdRegistroAcceso" />
+          </Key>
+          <Property Name="IdRegistroAcceso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cuenta" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaAcceso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Tipo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PoyectoVinculacion">
+          <Key>
+            <PropertyRef Name="IdProyecto" />
+          </Key>
+          <Property Name="IdProyecto" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocenteCatedra" Type="Int32" />
+          <Property Name="Carrera" Type="Int32" />
+          <Property Name="Nivel" Type="Int32" />
+          <Property Name="ParaleloAsignado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Modalidad" Type="Int32" />
+          <Property Name="AsignaturaRectoria" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PracticaVinculacionEstudiantes" Relationship="Self.FK_PracticaVinculacionEstudiante_PoyectoVinculacion" FromRole="PoyectoVinculacion" ToRole="PracticaVinculacionEstudiante" />
+        </EntityType>
+        <EntityType Name="PracticaVinculacionEstudiante">
+          <Key>
+            <PropertyRef Name="IdPracticaVinculacionEstudiante" />
+          </Key>
+          <Property Name="IdPracticaVinculacionEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="DocenteTutor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Docente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MateriaGeneradora" Type="Boolean" />
+          <Property Name="FechaPracticaDesde" Type="DateTime" Precision="0" />
+          <Property Name="Calificacion" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NumeroHora" Type="Int32" />
+          <Property Name="IdEstudiante" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="EstudianteNac" Type="Boolean" />
+          <Property Name="CodigoCertificado" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IdMatricula" Type="Int32" />
+          <Property Name="Observacion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPracticaVinculacion" Type="Int32" />
+          <Property Name="IdEmpresa" Type="Int32" />
+          <Property Name="TipoProyecto" Type="Int32" />
+          <Property Name="FechaPracticaHasta" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_PracticaVinculacionEstudiante_Empresa" FromRole="PracticaVinculacionEstudiante" ToRole="Empresa" />
+          <NavigationProperty Name="PoyectoVinculacion" Relationship="Self.FK_PracticaVinculacionEstudiante_PoyectoVinculacion" FromRole="PracticaVinculacionEstudiante" ToRole="PoyectoVinculacion" />
+          <NavigationProperty Name="TipoPracticaVinculacion1" Relationship="Self.FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion" FromRole="PracticaVinculacionEstudiante" ToRole="TipoPracticaVinculacion" />
+          <NavigationProperty Name="SeguimientoPracticasVinculacions" Relationship="Self.FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante" FromRole="PracticaVinculacionEstudiante" ToRole="SeguimientoPracticasVinculacion" />
+        </EntityType>
+        <EntityType Name="SeguimientoPracticasVinculacion">
+          <Key>
+            <PropertyRef Name="IdSeguimiento" />
+          </Key>
+          <Property Name="IdSeguimiento" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="IdPracticaVinculacion" Type="Int32" />
+          <Property Name="Docente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PracticaVinculacionEstudiante" Relationship="Self.FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante" FromRole="SeguimientoPracticasVinculacion" ToRole="PracticaVinculacionEstudiante" />
+        </EntityType>
+        <EntityType Name="TipoPracticaVinculacion">
+          <Key>
+            <PropertyRef Name="IdTipoPracticaVinculacion" />
+          </Key>
+          <Property Name="IdTipoPracticaVinculacion" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PracticaVinculacionEstudiantes" Relationship="Self.FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion" FromRole="TipoPracticaVinculacion" ToRole="PracticaVinculacionEstudiante" />
+        </EntityType>
+        <EntityType Name="EstudiantePicExaman">
+          <Key>
+            <PropertyRef Name="IdEstudiantePicExamen" />
+          </Key>
+          <Property Name="IdEstudiantePicExamen" Type="Int32" Nullable="false" />
+          <Property Name="IdEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdTesis" Type="Int32" />
+          <Property Name="IdTipoPicExamen" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tesi" Relationship="Self.FK_EstudiantePicExamen_Tesis" FromRole="EstudiantePicExamen" ToRole="Tesis" />
+          <NavigationProperty Name="TipoPicExaman" Relationship="Self.FK_EstudiantePicExamen_TipoPicExamen" FromRole="EstudiantePicExamen" ToRole="TipoPicExamen" />
+        </EntityType>
+        <EntityType Name="TipoPicExaman">
+          <Key>
+            <PropertyRef Name="IdTipoPicExamen" />
+          </Key>
+          <Property Name="IdTipoPicExamen" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActivo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="EstudiantePicExamen" Relationship="Self.FK_EstudiantePicExamen_TipoPicExamen" FromRole="TipoPicExamen" ToRole="EstudiantePicExamen" />
+        </EntityType>
+        <EntityType Name="TipoRevision">
+          <Key>
+            <PropertyRef Name="IdTipoRevision" />
+          </Key>
+          <Property Name="IdTipoRevision" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SeguimientoTesis" Relationship="Self.FK_SeguimientoTesis_TipoRevision" FromRole="TipoRevision" ToRole="SeguimientoTesis" />
+          <NavigationProperty Name="TutoreSeguimientoes" Relationship="Self.FK_TutoreSeguimiento_TipoRevision" FromRole="TipoRevision" ToRole="TutoreSeguimiento" />
+        </EntityType>
+        <EntityType Name="TutoreSeguimiento">
+          <Key>
+            <PropertyRef Name="IdTutorSeguimiento" />
+          </Key>
+          <Property Name="IdTutorSeguimiento" Type="Int32" Nullable="false" />
+          <Property Name="Docente" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoRevision" Type="Int32" Nullable="false" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IdTesis" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tesi" Relationship="Self.FK_TutoreSeguimiento_Tesis" FromRole="TutoreSeguimiento" ToRole="Tesis" />
+          <NavigationProperty Name="TipoRevision" Relationship="Self.FK_TutoreSeguimiento_TipoRevision" FromRole="TutoreSeguimiento" ToRole="TipoRevision" />
+        </EntityType>
+        <EntityType Name="EstudianteHabilitacionEstudiante">
+          <Key>
+            <PropertyRef Name="IdEstudianteHabilitacionEstudiante" />
+          </Key>
+          <Property Name="IdEstudianteHabilitacionEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="IdEstudiante" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdHabilitacionEstudiatne" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HabilitacionEstudiante" Relationship="Self.FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante" FromRole="EstudianteHabilitacionEstudiante" ToRole="HabilitacionEstudiante" />
+        </EntityType>
+        <EntityType Name="HabilitacionEstudiante">
+          <Key>
+            <PropertyRef Name="IdHabilitacionEstudiante" />
+          </Key>
+          <Property Name="IdHabilitacionEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="IsPasantia" Type="Boolean" Nullable="false" />
+          <Property Name="IsVinculacion" Type="Boolean" Nullable="false" />
+          <Property Name="IsIdioma" Type="Boolean" Nullable="false" />
+          <Property Name="IsFinanciero" Type="Boolean" Nullable="false" />
+          <Property Name="FechaPasantia" Type="DateTime" Precision="0" />
+          <Property Name="FechaVinculacion" Type="DateTime" Precision="0" />
+          <Property Name="FechaIdioma" Type="DateTime" Precision="0" />
+          <Property Name="FechaFinanciero" Type="DateTime" Precision="0" />
+          <Property Name="IsHabilitado" Type="Boolean" Nullable="false" />
+          <Property Name="FechaHabilitado" Type="DateTime" Precision="0" />
+          <Property Name="IsMallaCurricular" Type="Boolean" Nullable="false" />
+          <Property Name="FechaMallaCurricular" Type="DateTime" Precision="0" />
+          <Property Name="IsDocumentoTodos" Type="Boolean" Nullable="false" />
+          <Property Name="FechaDocumentoTodos" Type="DateTime" Precision="0" />
+          <Property Name="IsHomologacion" Type="Boolean" />
+          <Property Name="FechaHomologacion" Type="DateTime" Precision="0" />
+          <Property Name="DescripcionHomologacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="IsTema" Type="Boolean" Nullable="false" />
+          <Property Name="FechaTema" Type="DateTime" Precision="0" />
+          <Property Name="TipoTema" Type="Int32" Nullable="false" />
+          <Property Name="Usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EstudianteHabilitacionEstudiantes" Relationship="Self.FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante" FromRole="HabilitacionEstudiante" ToRole="EstudianteHabilitacionEstudiante" />
+          <NavigationProperty Name="ObservacionHabilitacionEstudiantes" Relationship="Self.FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante" FromRole="HabilitacionEstudiante" ToRole="ObservacionHabilitacionEstudiante" />
+        </EntityType>
+        <EntityType Name="ObservacionHabilitacionEstudiante">
+          <Key>
+            <PropertyRef Name="IdObservacion" />
+          </Key>
+          <Property Name="IdObservacion" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsActivo" Type="Boolean" Nullable="false" />
+          <Property Name="Usuario" Type="Int32" Nullable="false" />
+          <Property Name="IdHabilitacionEstudiante" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HabilitacionEstudiante" Relationship="Self.FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante" FromRole="ObservacionHabilitacionEstudiante" ToRole="HabilitacionEstudiante" />
+        </EntityType>
+        <EntityType Name="V_Estudiante">
+          <Key>
+            <PropertyRef Name="CRRDESCRIPC" />
+            <PropertyRef Name="DTPCEDULAC" />
+            <PropertyRef Name="MTRFECHAD" />
+            <PropertyRef Name="CRRCODIGOI" />
+            <PropertyRef Name="MTRPARALELO" />
+            <PropertyRef Name="TPECODIGOI" />
+          </Key>
+          <Property Name="CRRDESCRIPC" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DTPCEDULAC" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRES" Type="String" MaxLength="112" FixedLength="false" Unicode="false" />
+          <Property Name="DTPEMAILC" Type="String" MaxLength="60" FixedLength="true" Unicode="false" />
+          <Property Name="NVLCODIGOI" Type="Int32" />
+          <Property Name="MDLDESCRIPC" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <Property Name="MTRFECHAD" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CRRCODIGOI" Type="Int32" Nullable="false" />
+          <Property Name="INSGRUPOESP" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="MTRPARALELO" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MTRAÑOING" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TPECODIGOI" Type="Int32" Nullable="false" />
+          <Property Name="DTPTELEFOCELC" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="DTPTELEFOC" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_PracticaVinculacionEstudiante_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="PracticaVinculacionEstudiante" Type="Self.PracticaVinculacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="PracticaVinculacionEstudiante">
+              <PropertyRef Name="IdEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AsignacionFechaDefensa_Tesis">
+          <End Role="Tesis" Type="Self.Tesi" Multiplicity="0..1" />
+          <End Role="AsignacionFechaDefensa" Type="Self.AsignacionFechaDefensa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="AsignacionFechaDefensa">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudiantePicExamen_Tesis">
+          <End Role="Tesis" Type="Self.Tesi" Multiplicity="0..1" />
+          <End Role="EstudiantePicExamen" Type="Self.EstudiantePicExaman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="EstudiantePicExamen">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoTesis_Tesis">
+          <End Role="Tesis" Type="Self.Tesi" Multiplicity="1" />
+          <End Role="SeguimientoTesis" Type="Self.SeguimientoTesi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="SeguimientoTesis">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tribunal_Tesis">
+          <End Role="Tesis" Type="Self.Tesi" Multiplicity="0..1" />
+          <End Role="Tribunal" Type="Self.Tribunal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="Tribunal">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TutoreSeguimiento_Tesis">
+          <End Role="Tesis" Type="Self.Tesi" Multiplicity="1" />
+          <End Role="TutoreSeguimiento" Type="Self.TutoreSeguimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tesis">
+              <PropertyRef Name="IdTesis" />
+            </Principal>
+            <Dependent Role="TutoreSeguimiento">
+              <PropertyRef Name="IdTesis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tribunal_TipoIntegranteTribunal">
+          <End Role="TipoIntegranteTribunal" Type="Self.TipoIntegranteTribunal" Multiplicity="1" />
+          <End Role="Tribunal" Type="Self.Tribunal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoIntegranteTribunal">
+              <PropertyRef Name="IdTipoIntegranteTribunal" />
+            </Principal>
+            <Dependent Role="Tribunal">
+              <PropertyRef Name="IdTipoIntegranteTribunal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoTesis_TipoRevision">
+          <End Role="TipoRevision" Type="Self.TipoRevision" Multiplicity="0..1" />
+          <End Role="SeguimientoTesis" Type="Self.SeguimientoTesi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRevision">
+              <PropertyRef Name="IdTipoRevision" />
+            </Principal>
+            <Dependent Role="SeguimientoTesis">
+              <PropertyRef Name="IdTipoRevision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso">
+          <End Role="DocumentoIngreso" Type="Self.DocumentoIngreso" Multiplicity="1" />
+          <End Role="EstudianteDocumentoIngreso" Type="Self.EstudianteDocumentoIngreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentoIngreso">
+              <PropertyRef Name="IdDocumentoIngreso" />
+            </Principal>
+            <Dependent Role="EstudianteDocumentoIngreso">
+              <PropertyRef Name="IdDocumentoIngreso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario_DetalleUsuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="DetalleUsuario" Type="Self.DetalleUsuario" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DetalleUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdPerfil_UsuarioPerfil_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="UsuarioPerfil" Type="Self.UsuarioPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="UsuarioPerfil">
+              <PropertyRef Name="IdPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSistema_Perfil_Sistema">
+          <End Role="Sistema" Type="Self.Sistema" Multiplicity="1" />
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sistema">
+              <PropertyRef Name="IdSistema" />
+            </Principal>
+            <Dependent Role="Perfil">
+              <PropertyRef Name="IdSistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSistema_UsuarioSistema_Sistema">
+          <End Role="Sistema" Type="Self.Sistema" Multiplicity="1" />
+          <End Role="UsuarioSistema" Type="Self.UsuarioSistema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sistema">
+              <PropertyRef Name="IdSistema" />
+            </Principal>
+            <Dependent Role="UsuarioSistema">
+              <PropertyRef Name="IdSistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario_UsuarioPerfil_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioPerfil" Type="Self.UsuarioPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioPerfil">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario_UsuarioSistema_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="UsuarioSistema" Type="Self.UsuarioSistema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuarioSistema">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticaVinculacionEstudiante_PoyectoVinculacion">
+          <End Role="PoyectoVinculacion" Type="Self.PoyectoVinculacion" Multiplicity="0..1" />
+          <End Role="PracticaVinculacionEstudiante" Type="Self.PracticaVinculacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoyectoVinculacion">
+              <PropertyRef Name="IdProyecto" />
+            </Principal>
+            <Dependent Role="PracticaVinculacionEstudiante">
+              <PropertyRef Name="TipoProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion">
+          <End Role="TipoPracticaVinculacion" Type="Self.TipoPracticaVinculacion" Multiplicity="0..1" />
+          <End Role="PracticaVinculacionEstudiante" Type="Self.PracticaVinculacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPracticaVinculacion">
+              <PropertyRef Name="IdTipoPracticaVinculacion" />
+            </Principal>
+            <Dependent Role="PracticaVinculacionEstudiante">
+              <PropertyRef Name="TipoPracticaVinculacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante">
+          <End Role="PracticaVinculacionEstudiante" Type="Self.PracticaVinculacionEstudiante" Multiplicity="0..1" />
+          <End Role="SeguimientoPracticasVinculacion" Type="Self.SeguimientoPracticasVinculacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracticaVinculacionEstudiante">
+              <PropertyRef Name="IdPracticaVinculacionEstudiante" />
+            </Principal>
+            <Dependent Role="SeguimientoPracticasVinculacion">
+              <PropertyRef Name="IdPracticaVinculacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudiantePicExamen_TipoPicExamen">
+          <End Role="TipoPicExamen" Type="Self.TipoPicExaman" Multiplicity="1" />
+          <End Role="EstudiantePicExamen" Type="Self.EstudiantePicExaman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPicExamen">
+              <PropertyRef Name="IdTipoPicExamen" />
+            </Principal>
+            <Dependent Role="EstudiantePicExamen">
+              <PropertyRef Name="IdTipoPicExamen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TutoreSeguimiento_TipoRevision">
+          <End Role="TipoRevision" Type="Self.TipoRevision" Multiplicity="1" />
+          <End Role="TutoreSeguimiento" Type="Self.TutoreSeguimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRevision">
+              <PropertyRef Name="IdTipoRevision" />
+            </Principal>
+            <Dependent Role="TutoreSeguimiento">
+              <PropertyRef Name="IdTipoRevision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante">
+          <End Role="HabilitacionEstudiante" Type="Self.HabilitacionEstudiante" Multiplicity="1" />
+          <End Role="EstudianteHabilitacionEstudiante" Type="Self.EstudianteHabilitacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HabilitacionEstudiante">
+              <PropertyRef Name="IdHabilitacionEstudiante" />
+            </Principal>
+            <Dependent Role="EstudianteHabilitacionEstudiante">
+              <PropertyRef Name="IdHabilitacionEstudiatne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante">
+          <End Role="HabilitacionEstudiante" Type="Self.HabilitacionEstudiante" Multiplicity="1" />
+          <End Role="ObservacionHabilitacionEstudiante" Type="Self.ObservacionHabilitacionEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HabilitacionEstudiante">
+              <PropertyRef Name="IdHabilitacionEstudiante" />
+            </Principal>
+            <Dependent Role="ObservacionHabilitacionEstudiante">
+              <PropertyRef Name="IdHabilitacionEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UniversidadIsraelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Empresas" EntityType="Self.Empresa" />
+          <EntitySet Name="Tesis" EntityType="Self.Tesi" />
+          <EntitySet Name="AsignacionFechaDefensas" EntityType="Self.AsignacionFechaDefensa" />
+          <EntitySet Name="TipoIntegranteTribunals" EntityType="Self.TipoIntegranteTribunal" />
+          <EntitySet Name="Tribunals" EntityType="Self.Tribunal" />
+          <EntitySet Name="Urls" EntityType="Self.Url" />
+          <EntitySet Name="SeguimientoTesis" EntityType="Self.SeguimientoTesi" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="DeudasPendientesEstudiantes" EntityType="Self.DeudasPendientesEstudiante" />
+          <EntitySet Name="DocumentoIngresoes" EntityType="Self.DocumentoIngreso" />
+          <EntitySet Name="EstudianteDocumentoIngresoes" EntityType="Self.EstudianteDocumentoIngreso" />
+          <EntitySet Name="DetalleUsuarios" EntityType="Self.DetalleUsuario" />
+          <EntitySet Name="Perfils" EntityType="Self.Perfil" />
+          <EntitySet Name="Sistemas" EntityType="Self.Sistema" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="UsuarioPerfils" EntityType="Self.UsuarioPerfil" />
+          <EntitySet Name="UsuarioSistemas" EntityType="Self.UsuarioSistema" />
+          <EntitySet Name="Logs" EntityType="Self.Log" />
+          <EntitySet Name="RegistroAccesoUsuarios" EntityType="Self.RegistroAccesoUsuario" />
+          <EntitySet Name="PoyectoVinculacions" EntityType="Self.PoyectoVinculacion" />
+          <EntitySet Name="PracticaVinculacionEstudiantes" EntityType="Self.PracticaVinculacionEstudiante" />
+          <EntitySet Name="SeguimientoPracticasVinculacions" EntityType="Self.SeguimientoPracticasVinculacion" />
+          <EntitySet Name="TipoPracticaVinculacions" EntityType="Self.TipoPracticaVinculacion" />
+          <EntitySet Name="EstudiantePicExamen" EntityType="Self.EstudiantePicExaman" />
+          <EntitySet Name="TipoPicExamen" EntityType="Self.TipoPicExaman" />
+          <EntitySet Name="TipoRevisions" EntityType="Self.TipoRevision" />
+          <EntitySet Name="TutoreSeguimientoes" EntityType="Self.TutoreSeguimiento" />
+          <EntitySet Name="EstudianteHabilitacionEstudiantes" EntityType="Self.EstudianteHabilitacionEstudiante" />
+          <EntitySet Name="HabilitacionEstudiantes" EntityType="Self.HabilitacionEstudiante" />
+          <EntitySet Name="ObservacionHabilitacionEstudiantes" EntityType="Self.ObservacionHabilitacionEstudiante" />
+          <EntitySet Name="V_Estudiante" EntityType="Self.V_Estudiante" />
+          <AssociationSet Name="FK_PracticaVinculacionEstudiante_Empresa" Association="Self.FK_PracticaVinculacionEstudiante_Empresa">
+            <End Role="Empresa" EntitySet="Empresas" />
+            <End Role="PracticaVinculacionEstudiante" EntitySet="PracticaVinculacionEstudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AsignacionFechaDefensa_Tesis" Association="Self.FK_AsignacionFechaDefensa_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="AsignacionFechaDefensa" EntitySet="AsignacionFechaDefensas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudiantePicExamen_Tesis" Association="Self.FK_EstudiantePicExamen_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="EstudiantePicExamen" EntitySet="EstudiantePicExamen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoTesis_Tesis" Association="Self.FK_SeguimientoTesis_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="SeguimientoTesis" EntitySet="SeguimientoTesis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tribunal_Tesis" Association="Self.FK_Tribunal_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="Tribunal" EntitySet="Tribunals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TutoreSeguimiento_Tesis" Association="Self.FK_TutoreSeguimiento_Tesis">
+            <End Role="Tesis" EntitySet="Tesis" />
+            <End Role="TutoreSeguimiento" EntitySet="TutoreSeguimientoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tribunal_TipoIntegranteTribunal" Association="Self.FK_Tribunal_TipoIntegranteTribunal">
+            <End Role="TipoIntegranteTribunal" EntitySet="TipoIntegranteTribunals" />
+            <End Role="Tribunal" EntitySet="Tribunals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoTesis_TipoRevision" Association="Self.FK_SeguimientoTesis_TipoRevision">
+            <End Role="TipoRevision" EntitySet="TipoRevisions" />
+            <End Role="SeguimientoTesis" EntitySet="SeguimientoTesis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso" Association="Self.FK_EstudianteDocumentoIngreso_DocumentoIngreso_IdDocumentoIngreso">
+            <End Role="DocumentoIngreso" EntitySet="DocumentoIngresoes" />
+            <End Role="EstudianteDocumentoIngreso" EntitySet="EstudianteDocumentoIngresoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario_DetalleUsuario_Usuario" Association="Self.FK_IdUsuario_DetalleUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="DetalleUsuario" EntitySet="DetalleUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdPerfil_UsuarioPerfil_Perfil" Association="Self.FK_IdPerfil_UsuarioPerfil_Perfil">
+            <End Role="Perfil" EntitySet="Perfils" />
+            <End Role="UsuarioPerfil" EntitySet="UsuarioPerfils" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSistema_Perfil_Sistema" Association="Self.FK_IdSistema_Perfil_Sistema">
+            <End Role="Sistema" EntitySet="Sistemas" />
+            <End Role="Perfil" EntitySet="Perfils" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSistema_UsuarioSistema_Sistema" Association="Self.FK_IdSistema_UsuarioSistema_Sistema">
+            <End Role="Sistema" EntitySet="Sistemas" />
+            <End Role="UsuarioSistema" EntitySet="UsuarioSistemas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario_UsuarioPerfil_Usuario" Association="Self.FK_IdUsuario_UsuarioPerfil_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="UsuarioPerfil" EntitySet="UsuarioPerfils" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario_UsuarioSistema_Usuario" Association="Self.FK_IdUsuario_UsuarioSistema_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="UsuarioSistema" EntitySet="UsuarioSistemas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticaVinculacionEstudiante_PoyectoVinculacion" Association="Self.FK_PracticaVinculacionEstudiante_PoyectoVinculacion">
+            <End Role="PoyectoVinculacion" EntitySet="PoyectoVinculacions" />
+            <End Role="PracticaVinculacionEstudiante" EntitySet="PracticaVinculacionEstudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion" Association="Self.FK_PracticaVinculacionEstudiante_TipoPracticaVinculacion">
+            <End Role="TipoPracticaVinculacion" EntitySet="TipoPracticaVinculacions" />
+            <End Role="PracticaVinculacionEstudiante" EntitySet="PracticaVinculacionEstudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante" Association="Self.FK_SeguimientoPracticasVinculacion_PracticaVinculacionEstudiante">
+            <End Role="PracticaVinculacionEstudiante" EntitySet="PracticaVinculacionEstudiantes" />
+            <End Role="SeguimientoPracticasVinculacion" EntitySet="SeguimientoPracticasVinculacions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudiantePicExamen_TipoPicExamen" Association="Self.FK_EstudiantePicExamen_TipoPicExamen">
+            <End Role="TipoPicExamen" EntitySet="TipoPicExamen" />
+            <End Role="EstudiantePicExamen" EntitySet="EstudiantePicExamen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TutoreSeguimiento_TipoRevision" Association="Self.FK_TutoreSeguimiento_TipoRevision">
+            <End Role="TipoRevision" EntitySet="TipoRevisions" />
+            <End Role="TutoreSeguimiento" EntitySet="TutoreSeguimientoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante" Association="Self.FK_EstudianteHabilitacionEstudiante_HabilitacionEstudiante">
+            <End Role="HabilitacionEstudiante" EntitySet="HabilitacionEstudiantes" />
+            <End Role="EstudianteHabilitacionEstudiante" EntitySet="EstudianteHabilitacionEstudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante" Association="Self.FK_ObservacionHabilitacionEstudiante_HabilitacionEstudiante">
+            <End Role="HabilitacionEstudiante" EntitySet="HabilitacionEstudiantes" />
+            <End Role="ObservacionHabilitacionEstudiante" EntitySet="ObservacionHabilitacionEstudiantes" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CARRERA_PERIODO" ReturnType="Collection(UniversidadIsraelModel.SP_CARRERA_PERIODO_Result)">
+          <Parameter Name="PERIODO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CARRERAS_PERIODO_ESTUDIANTE" ReturnType="Collection(UniversidadIsraelModel.SP_CARRERAS_PERIODO_ESTUDIANTE_Result)">
+            <Parameter Name="PCARRERA" Mode="In" Type="Int32" />
+            <Parameter Name="PERIODO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DATOS_ESTUDIANTES" ReturnType="Collection(UniversidadIsraelModel.SP_DATOS_ESTUDIANTES_Result)">
+            <Parameter Name="PCARRERA" Mode="In" Type="Int32" />
+            <Parameter Name="PERIODO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(UniversidadIsraelModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(UniversidadIsraelModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PERIODO" ReturnType="Collection(UniversidadIsraelModel.SP_PERIODO_Result)" />
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="SP_DATOS_DOCENTES" ReturnType="Collection(UniversidadIsraelModel.SP_DATOS_DOCENTES_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SP_CARRERA_PERIODO_Result">
+          <Property Type="Int32" Name="CODIGO_CARRERA" Nullable="false" />
+          <Property Type="String" Name="CARRERA" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_CARRERAS_PERIODO_ESTUDIANTE_Result">
+          <Property Type="String" Name="CARRERA" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="NOMBRES" Nullable="true" MaxLength="112" />
+          <Property Type="String" Name="MAIL" Nullable="true" MaxLength="60" />
+          <Property Type="Int32" Name="NIVEL" Nullable="true" />
+          <Property Type="String" Name="MODALIDAD" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="FECHA_MATRICULA" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CODIGO_CARRERA" Nullable="false" />
+          <Property Type="String" Name="ESPECIALIDAD" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="PARALELO" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="ANIO_INGRESO" Nullable="true" MaxLength="6" />
+          <Property Type="Int32" Name="CODIGO_PERIODO" Nullable="false" />
+          <Property Type="String" Name="CELULAR" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="TELEFONO" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="SP_DATOS_ESTUDIANTES_Result">
+          <Property Type="String" Name="CARRERA" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="NOMBRES" Nullable="true" MaxLength="112" />
+          <Property Type="String" Name="MAIL" Nullable="true" MaxLength="60" />
+          <Property Type="Int32" Name="NIVEL" Nullable="true" />
+          <Property Type="String" Name="MODALIDAD" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="FECHA_MATRICULA" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CODIGO_CARRERA" Nullable="false" />
+          <Property Type="String" Name="ESPECIALIDAD" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="PARALELO" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="ANIO_INGRESO" Nullable="true" MaxLength="6" />
+          <Property Type="Int32" Name="CODIGO_PERIODO" Nullable="false" />
+          <Property Type="String" Name="CELULAR" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="TELEFONO" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_PERIODO_Result">
+          <Property Type="Int32" Name="PRDCODIGOI" Nullable="false" />
+          <Property Type="String" Name="PERIODO" Nullable="true" MaxLength="28" />
+        </ComplexType>
+        <ComplexType Name="SP_DATOS_DOCENTES_Result">
+          <Property Type="String" Name="DTPCEDULAC" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DTPNOMBREC" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DTPAPELLIC" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DTPAPELLIC2" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="DTPFECHNAF" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DTPEMAILC" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="DTPTELEFOCELC" Nullable="true" MaxLength="10" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UniversidadIsraelModelStoreContainer" CdmEntityContainer="UniversidadIsraelEntities">
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Representante" ColumnName="Representante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tesis">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.Tesi">
+              <MappingFragment StoreEntitySet="Tesis">
+                <ScalarProperty Name="IdTesis" ColumnName="IdTesis" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+                <ScalarProperty Name="IsTutoria" ColumnName="IsTutoria" />
+                <ScalarProperty Name="FechaTutoria" ColumnName="FechaTutoria" />
+                <ScalarProperty Name="IsRevision" ColumnName="IsRevision" />
+                <ScalarProperty Name="FechaRevision" ColumnName="FechaRevision" />
+                <ScalarProperty Name="IsHabilitado" ColumnName="IsHabilitado" />
+                <ScalarProperty Name="FechaHabilitado" ColumnName="FechaHabilitado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AsignacionFechaDefensas">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.AsignacionFechaDefensa">
+              <MappingFragment StoreEntitySet="AsignacionFechaDefensa">
+                <ScalarProperty Name="IdAsignacionFechaDefensa" ColumnName="IdAsignacionFechaDefensa" />
+                <ScalarProperty Name="FechaDefensa" ColumnName="FechaDefensa" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="IdTesis" ColumnName="IdTesis" />
+                <ScalarProperty Name="NotaFinalGrado" ColumnName="NotaFinalGrado" />
+                <ScalarProperty Name="Graduado" ColumnName="Graduado" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoIntegranteTribunals">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.TipoIntegranteTribunal">
+              <MappingFragment StoreEntitySet="TipoIntegranteTribunal">
+                <ScalarProperty Name="IdTipoIntegranteTribunal" ColumnName="IdTipoIntegranteTribunal" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tribunals">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.Tribunal">
+              <MappingFragment StoreEntitySet="Tribunal">
+                <ScalarProperty Name="IdTribunal" ColumnName="IdTribunal" />
+                <ScalarProperty Name="Docente" ColumnName="Docente" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+                <ScalarProperty Name="IdTipoIntegranteTribunal" ColumnName="IdTipoIntegranteTribunal" />
+                <ScalarProperty Name="IdTesis" ColumnName="IdTesis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urls">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.Url">
+              <MappingFragment StoreEntitySet="Urls">
+                <ScalarProperty Name="IdGuid" ColumnName="IdGuid" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdSistema" ColumnName="IdSistema" />
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguimientoTesis">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.SeguimientoTesi">
+              <MappingFragment StoreEntitySet="SeguimientoTesis">
+                <ScalarProperty Name="IdSeguimientoTesis" ColumnName="IdSeguimientoTesis" />
+                <ScalarProperty Name="DocenteTutor" ColumnName="DocenteTutor" />
+                <ScalarProperty Name="FechaRevision" ColumnName="FechaRevision" />
+                <ScalarProperty Name="IdTipoRevision" ColumnName="IdTipoRevision" />
+                <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+                <ScalarProperty Name="IdTesis" ColumnName="IdTesis" />
+                <ScalarProperty Name="FechaFinRevision" ColumnName="FechaFinRevision" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeudasPendientesEstudiantes">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.DeudasPendientesEstudiante">
+              <MappingFragment StoreEntitySet="DeudasPendientesEstudiante">
+                <ScalarProperty Name="IdDeudaPendiente" ColumnName="IdDeudaPendiente" />
+                <ScalarProperty Name="Estudiante" ColumnName="Estudiante" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="ValorPendiente" ColumnName="ValorPendiente" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="IsPagado" ColumnName="IsPagado" />
+                <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+                <ScalarProperty Name="NumeroFactura" ColumnName="NumeroFactura" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentoIngresoes">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.DocumentoIngreso">
+              <MappingFragment StoreEntitySet="DocumentoIngreso">
+                <ScalarProperty Name="IdDocumentoIngreso" ColumnName="IdDocumentoIngreso" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstudianteDocumentoIngresoes">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.EstudianteDocumentoIngreso">
+              <MappingFragment StoreEntitySet="EstudianteDocumentoIngreso">
+                <ScalarProperty Name="IdDocumentoIngresoTipo" ColumnName="IdDocumentoIngresoTipo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="IdDocumentoIngreso" ColumnName="IdDocumentoIngreso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleUsuarios">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.DetalleUsuario">
+              <MappingFragment StoreEntitySet="DetalleUsuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfils">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.Perfil">
+              <MappingFragment StoreEntitySet="Perfil">
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="IdSistema" ColumnName="IdSistema" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sistemas">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.Sistema">
+              <MappingFragment StoreEntitySet="Sistema">
+                <ScalarProperty Name="IdSistema" ColumnName="IdSistema" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Siglas" ColumnName="Siglas" />
+                <ScalarProperty Name="AreaUsuarias" ColumnName="AreaUsuarias" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Servidor" ColumnName="Servidor" />
+                <ScalarProperty Name="Puerto" ColumnName="Puerto" />
+                <ScalarProperty Name="GuidSistema" ColumnName="GuidSistema" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="ActiveDirectory" ColumnName="ActiveDirectory" />
+                <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioPerfils">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.UsuarioPerfil">
+              <MappingFragment StoreEntitySet="UsuarioPerfil">
+                <ScalarProperty Name="IdUsuarioPerfil" ColumnName="IdUsuarioPerfil" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioSistemas">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.UsuarioSistema">
+              <MappingFragment StoreEntitySet="UsuarioSistema">
+                <ScalarProperty Name="IdUsuarioSistema" ColumnName="IdUsuarioSistema" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdSistema" ColumnName="IdSistema" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.Log">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Parametros" ColumnName="Parametros" />
+                <ScalarProperty Name="Respuesta" ColumnName="Respuesta" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroAccesoUsuarios">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.RegistroAccesoUsuario">
+              <MappingFragment StoreEntitySet="RegistroAccesoUsuario">
+                <ScalarProperty Name="IdRegistroAcceso" ColumnName="IdRegistroAcceso" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="FechaAcceso" ColumnName="FechaAcceso" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PoyectoVinculacions">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.PoyectoVinculacion">
+              <MappingFragment StoreEntitySet="PoyectoVinculacion">
+                <ScalarProperty Name="IdProyecto" ColumnName="IdProyecto" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="DocenteCatedra" ColumnName="DocenteCatedra" />
+                <ScalarProperty Name="Carrera" ColumnName="Carrera" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="ParaleloAsignado" ColumnName="ParaleloAsignado" />
+                <ScalarProperty Name="Modalidad" ColumnName="Modalidad" />
+                <ScalarProperty Name="AsignaturaRectoria" ColumnName="AsignaturaRectoria" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PracticaVinculacionEstudiantes">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.PracticaVinculacionEstudiante">
+              <MappingFragment StoreEntitySet="PracticaVinculacionEstudiante">
+                <ScalarProperty Name="IdPracticaVinculacionEstudiante" ColumnName="IdPracticaVinculacionEstudiante" />
+                <ScalarProperty Name="DocenteTutor" ColumnName="DocenteTutor" />
+                <ScalarProperty Name="Docente" ColumnName="Docente" />
+                <ScalarProperty Name="MateriaGeneradora" ColumnName="MateriaGeneradora" />
+                <ScalarProperty Name="FechaPracticaDesde" ColumnName="FechaPracticaDesde" />
+                <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+                <ScalarProperty Name="NumeroHora" ColumnName="NumeroHora" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="EstudianteNac" ColumnName="EstudianteNac" />
+                <ScalarProperty Name="CodigoCertificado" ColumnName="CodigoCertificado" />
+                <ScalarProperty Name="IdMatricula" ColumnName="IdMatricula" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="TipoPracticaVinculacion" ColumnName="TipoPracticaVinculacion" />
+                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+                <ScalarProperty Name="TipoProyecto" ColumnName="TipoProyecto" />
+                <ScalarProperty Name="FechaPracticaHasta" ColumnName="FechaPracticaHasta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeguimientoPracticasVinculacions">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.SeguimientoPracticasVinculacion">
+              <MappingFragment StoreEntitySet="SeguimientoPracticasVinculacion">
+                <ScalarProperty Name="IdSeguimiento" ColumnName="IdSeguimiento" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdPracticaVinculacion" ColumnName="IdPracticaVinculacion" />
+                <ScalarProperty Name="Docente" ColumnName="Docente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoPracticaVinculacions">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.TipoPracticaVinculacion">
+              <MappingFragment StoreEntitySet="TipoPracticaVinculacion">
+                <ScalarProperty Name="IdTipoPracticaVinculacion" ColumnName="IdTipoPracticaVinculacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstudiantePicExamen">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.EstudiantePicExaman">
+              <MappingFragment StoreEntitySet="EstudiantePicExamen">
+                <ScalarProperty Name="IdEstudiantePicExamen" ColumnName="IdEstudiantePicExamen" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdTesis" ColumnName="IdTesis" />
+                <ScalarProperty Name="IdTipoPicExamen" ColumnName="IdTipoPicExamen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoPicExamen">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.TipoPicExaman">
+              <MappingFragment StoreEntitySet="TipoPicExamen">
+                <ScalarProperty Name="IdTipoPicExamen" ColumnName="IdTipoPicExamen" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoRevisions">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.TipoRevision">
+              <MappingFragment StoreEntitySet="TipoRevision">
+                <ScalarProperty Name="IdTipoRevision" ColumnName="IdTipoRevision" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TutoreSeguimientoes">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.TutoreSeguimiento">
+              <MappingFragment StoreEntitySet="TutoreSeguimiento">
+                <ScalarProperty Name="IdTutorSeguimiento" ColumnName="IdTutorSeguimiento" />
+                <ScalarProperty Name="Docente" ColumnName="Docente" />
+                <ScalarProperty Name="IdTipoRevision" ColumnName="IdTipoRevision" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+                <ScalarProperty Name="IdTesis" ColumnName="IdTesis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstudianteHabilitacionEstudiantes">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.EstudianteHabilitacionEstudiante">
+              <MappingFragment StoreEntitySet="EstudianteHabilitacionEstudiante">
+                <ScalarProperty Name="IdEstudianteHabilitacionEstudiante" ColumnName="IdEstudianteHabilitacionEstudiante" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="IdHabilitacionEstudiatne" ColumnName="IdHabilitacionEstudiatne" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HabilitacionEstudiantes">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.HabilitacionEstudiante">
+              <MappingFragment StoreEntitySet="HabilitacionEstudiante">
+                <ScalarProperty Name="IdHabilitacionEstudiante" ColumnName="IdHabilitacionEstudiante" />
+                <ScalarProperty Name="IsPasantia" ColumnName="IsPasantia" />
+                <ScalarProperty Name="IsVinculacion" ColumnName="IsVinculacion" />
+                <ScalarProperty Name="IsIdioma" ColumnName="IsIdioma" />
+                <ScalarProperty Name="IsFinanciero" ColumnName="IsFinanciero" />
+                <ScalarProperty Name="FechaPasantia" ColumnName="FechaPasantia" />
+                <ScalarProperty Name="FechaVinculacion" ColumnName="FechaVinculacion" />
+                <ScalarProperty Name="FechaIdioma" ColumnName="FechaIdioma" />
+                <ScalarProperty Name="FechaFinanciero" ColumnName="FechaFinanciero" />
+                <ScalarProperty Name="IsHabilitado" ColumnName="IsHabilitado" />
+                <ScalarProperty Name="FechaHabilitado" ColumnName="FechaHabilitado" />
+                <ScalarProperty Name="IsMallaCurricular" ColumnName="IsMallaCurricular" />
+                <ScalarProperty Name="FechaMallaCurricular" ColumnName="FechaMallaCurricular" />
+                <ScalarProperty Name="IsDocumentoTodos" ColumnName="IsDocumentoTodos" />
+                <ScalarProperty Name="FechaDocumentoTodos" ColumnName="FechaDocumentoTodos" />
+                <ScalarProperty Name="IsHomologacion" ColumnName="IsHomologacion" />
+                <ScalarProperty Name="FechaHomologacion" ColumnName="FechaHomologacion" />
+                <ScalarProperty Name="DescripcionHomologacion" ColumnName="DescripcionHomologacion" />
+                <ScalarProperty Name="IsTema" ColumnName="IsTema" />
+                <ScalarProperty Name="FechaTema" ColumnName="FechaTema" />
+                <ScalarProperty Name="TipoTema" ColumnName="TipoTema" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObservacionHabilitacionEstudiantes">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.ObservacionHabilitacionEstudiante">
+              <MappingFragment StoreEntitySet="ObservacionHabilitacionEstudiante">
+                <ScalarProperty Name="IdObservacion" ColumnName="IdObservacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IsActivo" ColumnName="IsActivo" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="IdHabilitacionEstudiante" ColumnName="IdHabilitacionEstudiante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Estudiante">
+            <EntityTypeMapping TypeName="UniversidadIsraelModel.V_Estudiante">
+              <MappingFragment StoreEntitySet="V_Estudiante">
+                <ScalarProperty Name="CRRDESCRIPC" ColumnName="CRRDESCRIPC" />
+                <ScalarProperty Name="DTPCEDULAC" ColumnName="DTPCEDULAC" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="DTPEMAILC" ColumnName="DTPEMAILC" />
+                <ScalarProperty Name="NVLCODIGOI" ColumnName="NVLCODIGOI" />
+                <ScalarProperty Name="MDLDESCRIPC" ColumnName="MDLDESCRIPC" />
+                <ScalarProperty Name="MTRFECHAD" ColumnName="MTRFECHAD" />
+                <ScalarProperty Name="CRRCODIGOI" ColumnName="CRRCODIGOI" />
+                <ScalarProperty Name="INSGRUPOESP" ColumnName="INSGRUPOESP" />
+                <ScalarProperty Name="MTRPARALELO" ColumnName="MTRPARALELO" />
+                <ScalarProperty Name="MTRAÑOING" ColumnName="MTRAÑOING" />
+                <ScalarProperty Name="TPECODIGOI" ColumnName="TPECODIGOI" />
+                <ScalarProperty Name="DTPTELEFOCELC" ColumnName="DTPTELEFOCELC" />
+                <ScalarProperty Name="DTPTELEFOC" ColumnName="DTPTELEFOC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="UniversidadIsraelModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="SP_CARRERA_PERIODO" FunctionName="UniversidadIsraelModel.Store.SP_CARRERA_PERIODO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversidadIsraelModel.SP_CARRERA_PERIODO_Result">
+                <ScalarProperty Name="CODIGO_CARRERA" ColumnName="CODIGO_CARRERA" />
+                <ScalarProperty Name="CARRERA" ColumnName="CARRERA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_CARRERAS_PERIODO_ESTUDIANTE" FunctionName="UniversidadIsraelModel.Store.SP_CARRERAS_PERIODO_ESTUDIANTE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversidadIsraelModel.SP_CARRERAS_PERIODO_ESTUDIANTE_Result">
+                <ScalarProperty Name="CARRERA" ColumnName="CARRERA" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+                <ScalarProperty Name="NIVEL" ColumnName="NIVEL" />
+                <ScalarProperty Name="MODALIDAD" ColumnName="MODALIDAD" />
+                <ScalarProperty Name="FECHA_MATRICULA" ColumnName="FECHA_MATRICULA" />
+                <ScalarProperty Name="CODIGO_CARRERA" ColumnName="CODIGO_CARRERA" />
+                <ScalarProperty Name="ESPECIALIDAD" ColumnName="ESPECIALIDAD" />
+                <ScalarProperty Name="PARALELO" ColumnName="PARALELO" />
+                <ScalarProperty Name="ANIO_INGRESO" ColumnName="ANIO_INGRESO" />
+                <ScalarProperty Name="CODIGO_PERIODO" ColumnName="CODIGO_PERIODO" />
+                <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="UniversidadIsraelModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="SP_DATOS_ESTUDIANTES" FunctionName="UniversidadIsraelModel.Store.SP_DATOS_ESTUDIANTES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversidadIsraelModel.SP_DATOS_ESTUDIANTES_Result">
+                <ScalarProperty Name="CARRERA" ColumnName="CARRERA" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+                <ScalarProperty Name="NIVEL" ColumnName="NIVEL" />
+                <ScalarProperty Name="MODALIDAD" ColumnName="MODALIDAD" />
+                <ScalarProperty Name="FECHA_MATRICULA" ColumnName="FECHA_MATRICULA" />
+                <ScalarProperty Name="CODIGO_CARRERA" ColumnName="CODIGO_CARRERA" />
+                <ScalarProperty Name="ESPECIALIDAD" ColumnName="ESPECIALIDAD" />
+                <ScalarProperty Name="PARALELO" ColumnName="PARALELO" />
+                <ScalarProperty Name="ANIO_INGRESO" ColumnName="ANIO_INGRESO" />
+                <ScalarProperty Name="CODIGO_PERIODO" ColumnName="CODIGO_PERIODO" />
+                <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="UniversidadIsraelModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="UniversidadIsraelModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversidadIsraelModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="UniversidadIsraelModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversidadIsraelModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PERIODO" FunctionName="UniversidadIsraelModel.Store.SP_PERIODO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversidadIsraelModel.SP_PERIODO_Result">
+                <ScalarProperty Name="PRDCODIGOI" ColumnName="PRDCODIGOI" />
+                <ScalarProperty Name="PERIODO" ColumnName="PERIODO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="UniversidadIsraelModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="UniversidadIsraelModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="SP_DATOS_DOCENTES" FunctionName="UniversidadIsraelModel.Store.SP_DATOS_DOCENTES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversidadIsraelModel.SP_DATOS_DOCENTES_Result">
+                <ScalarProperty Name="DTPCEDULAC" ColumnName="DTPCEDULAC" />
+                <ScalarProperty Name="DTPNOMBREC" ColumnName="DTPNOMBREC" />
+                <ScalarProperty Name="DTPAPELLIC" ColumnName="DTPAPELLIC" />
+                <ScalarProperty Name="DTPAPELLIC2" ColumnName="DTPAPELLIC2" />
+                <ScalarProperty Name="DTPFECHNAF" ColumnName="DTPFECHNAF" />
+                <ScalarProperty Name="DTPEMAILC" ColumnName="DTPEMAILC" />
+                <ScalarProperty Name="DTPTELEFOCELC" ColumnName="DTPTELEFOCELC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

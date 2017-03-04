@@ -4,16 +4,23 @@
 
 <html lang="es">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - Mi aplicación ASP.NET</title>
+    <title><%: Page.Title %> - Asignación Tribunal</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <style type="text/css">
+        .GridView1 th {
+            text-align: center !important;
+            background-color: #337AB7;
+            color: White;
+        }
+    </style>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -48,26 +55,57 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Nombre de la aplicación</a>
+                    <a class="navbar-brand" runat="server" href="~/">Sistema Asignación Tribunal</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Inicio</a></li>
-                        <li><a runat="server" href="~/About">Acerca de</a></li>
-                        <li><a runat="server" href="~/Contact">Contacto</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">Administración<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Mantenimiento/TipoUsuarios.aspx">Tipo Usuario</a></li>
+                                <li><a href="../Mantenimiento/Usuarios.aspx">Usuarios</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">Parámetros<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Parametros/TipoTribunal.aspx">Tipo Tribunal</a></li>
+                                <li><a href="../Mantenimiento/Modelo.aspx">Modelos</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="../Mantenimiento/Vehiculos.aspx">Vehiculos</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">Asignación<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../AsignacionTribunal/Asignacion.aspx">Asignación Tribunal</a></li>
+                                <li><a href="../Mantenimiento/Modelo.aspx">Modelos</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="../Mantenimiento/Vehiculos.aspx">Vehiculos</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <script src="../Scripts/Utilidades/JsUtilidades.js" type="text/javascript"></script>
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </ContentTemplate>
+            </asp:UpdatePanel>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Asignacion de Tribunal</p>
             </footer>
         </div>
-
+       
     </form>
 </body>
 </html>
